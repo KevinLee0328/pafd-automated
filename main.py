@@ -234,17 +234,30 @@ class Zlapp(Fudan):
                     }
                 )
             else:
-                self.last_info.update(
-                    {
-                        "tw": "13",
-                        "province": province,
-                        "city": city,
-                        "area": " ".join((province, city, district)),
-                        #"sfzx": "1",  # 是否在校
-                        #"fxyy": "",  # 返校原因
-                        "code": code,
-                    }
-                )
+                if province == "北京市" or province == "天津市" or province == "上海市" or province == "重庆市":
+                    self.last_info.update(
+                        {
+                            "tw": "13",
+                            "province": province,
+                            "city": city,
+                            "area": " ".join((province, district)),
+                            #"sfzx": "1",  # 是否在校
+                            #"fxyy": "",  # 返校原因
+                            "code": code,
+                        }
+                    )
+                else:
+                    self.last_info.update(
+                        {
+                            "tw": "13",
+                            "province": province,
+                            "city": city,
+                            "area": " ".join((province, city, district)),
+                            #"sfzx": "1",  # 是否在校
+                            #"fxyy": "",  # 返校原因
+                            "code": code,
+                        }
+                    )
             # print(self.last_info)
             save = self.session.post(
                 'https://zlapp.fudan.edu.cn/ncov/wap/fudan/save',
